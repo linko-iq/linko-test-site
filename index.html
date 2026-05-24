@@ -1095,8 +1095,9 @@ a{text-decoration:none;color:inherit}
 @media(max-width:520px){#linkoAiChat{right:10px;bottom:214px;width:calc(100vw - 20px)}#linkoAiFab{bottom:146px}#linkoMusicFab{bottom:82px}}
 </style>
 
+
 <style>
-/* ===== LINKO PREMIUM ACTION DOCK FINAL ===== */
+/* ===== LINKO PREMIUM ACTION DOCK SMOOTH REAL MUSIC ===== */
 
 /* إخفاء الأزرار القديمة المتفرقة نهائياً */
 .linko-floating-wa,
@@ -1108,93 +1109,56 @@ a{text-decoration:none;color:inherit}
   pointer-events:none !important;
 }
 
-/* الشريط الجديد الموحد */
+/* الشريط الجديد الموحد - أخف وأسرع */
 #linkoPremiumDock{
   position:fixed;
   left:50%;
-  bottom:14px;
+  bottom:12px;
   transform:translateX(-50%);
   z-index:10000020;
-  width:min(94vw,520px);
-  min-height:70px;
-  padding:10px;
-  border-radius:28px;
+  width:min(94vw,500px);
+  min-height:66px;
+  padding:8px;
+  border-radius:26px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:8px;
-  background:
-    linear-gradient(180deg,rgba(17,17,17,.94),rgba(5,5,5,.92)),
-    radial-gradient(circle at top,rgba(255,217,120,.18),transparent 45%);
-  border:1px solid rgba(255,217,120,.42);
-  box-shadow:
-    0 0 24px rgba(212,175,55,.34),
-    0 0 52px rgba(255,217,120,.14),
-    0 14px 34px rgba(0,0,0,.62),
-    inset 0 0 22px rgba(212,175,55,.08);
+  gap:7px;
+  background:rgba(7,7,7,.94);
+  border:1px solid rgba(255,217,120,.44);
+  box-shadow:0 0 22px rgba(212,175,55,.28),0 12px 30px rgba(0,0,0,.58);
   overflow:hidden;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
 
-/* إطار إضاءة متحركة سريع وواضح */
+/* إطار متحرك واضح لكن أخف حتى ما يثقل الجهاز */
 #linkoPremiumDock:before{
   content:"";
   position:absolute;
   inset:0;
-  border-radius:28px;
+  border-radius:26px;
   padding:2px;
-  background:linear-gradient(
-    120deg,
-    rgba(212,175,55,.18),
-    rgba(255,217,120,1),
-    rgba(255,255,255,.55),
-    rgba(212,175,55,.22),
-    rgba(255,217,120,.92)
-  );
-  background-size:300% 300%;
-  animation:linkoDockBorderMove 1.35s linear infinite;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
+  background:linear-gradient(120deg,rgba(212,175,55,.25),rgba(255,217,120,1),rgba(255,255,255,.45),rgba(212,175,55,.25));
+  background-size:260% 260%;
+  animation:linkoDockBorderMove 1.65s linear infinite;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
   mask-composite:exclude;
   pointer-events:none;
   z-index:2;
 }
-
-#linkoPremiumDock:after{
-  content:"";
-  position:absolute;
-  top:-70%;
-  right:-80%;
-  width:55%;
-  height:240%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),rgba(255,217,120,.45),transparent);
-  transform:rotate(22deg);
-  animation:linkoDockSweep 1.9s ease-in-out infinite;
-  pointer-events:none;
-  z-index:1;
-}
-
 @keyframes linkoDockBorderMove{
   0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-@keyframes linkoDockSweep{
-  0%{right:-80%;opacity:0}
-  22%{opacity:1}
-  100%{right:128%;opacity:0}
+  100%{background-position:260% 50%}
 }
 
-/* أزرار الشريط */
 .linko-dock-btn{
   position:relative;
   z-index:3;
-  min-height:52px;
-  border:1px solid rgba(255,217,120,.28);
-  border-radius:20px;
-  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  min-height:50px;
+  border:1px solid rgba(255,217,120,.24);
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
   color:#fff;
   text-decoration:none;
   display:flex;
@@ -1204,62 +1168,57 @@ a{text-decoration:none;color:inherit}
   gap:3px;
   font-weight:950;
   cursor:pointer;
-  box-shadow:inset 0 0 14px rgba(255,217,120,.04);
-  transition:transform .18s ease, background .18s ease, box-shadow .18s ease;
-  overflow:hidden;
+  transition:none !important;
   -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  user-select:none;
 }
-.linko-dock-btn:hover,
 .linko-dock-btn:active{
-  transform:translateY(-3px) scale(1.03);
-  background:linear-gradient(180deg,rgba(255,217,120,.20),rgba(255,255,255,.05));
-  box-shadow:0 0 18px rgba(212,175,55,.25), inset 0 0 18px rgba(255,217,120,.08);
+  background:rgba(255,217,120,.16);
+  transform:scale(.97);
 }
 .linko-dock-icon{
   font-size:21px;
   line-height:1;
-  filter:drop-shadow(0 0 8px rgba(255,217,120,.28));
+  filter:drop-shadow(0 0 7px rgba(255,217,120,.25));
 }
 .linko-dock-label{
   font-size:10.5px;
   line-height:1;
   white-space:nowrap;
-  color:#f6f6f6;
 }
 .linko-dock-btn.whatsapp .linko-dock-icon{color:#25D366}
 .linko-dock-btn.call .linko-dock-icon{color:#FFD978}
-.linko-dock-btn.ai .linko-dock-icon{color:#FFD978}
-.linko-dock-btn.music .linko-dock-icon{color:#fff}
 
 #linkoPremiumMusicToast{
   position:fixed;
   left:50%;
-  bottom:96px;
+  bottom:92px;
   transform:translateX(-50%);
   z-index:10000030;
   display:none;
-  background:linear-gradient(180deg,#111,#050505);
+  background:#111;
   color:#fff;
   border:1px solid rgba(255,217,120,.38);
   border-radius:999px;
-  padding:11px 16px;
+  padding:10px 15px;
   font-size:13px;
   font-weight:850;
-  box-shadow:0 0 22px rgba(212,175,55,.26),0 12px 28px rgba(0,0,0,.45);
+  box-shadow:0 0 20px rgba(212,175,55,.24),0 10px 24px rgba(0,0,0,.42);
 }
 #linkoPremiumMusicToast.show{display:block}
 
 @media(max-width:420px){
   #linkoPremiumDock{
-    width:calc(100vw - 18px);
-    bottom:10px;
-    padding:8px;
+    width:calc(100vw - 16px);
+    bottom:9px;
+    padding:7px;
     gap:6px;
-    border-radius:24px;
+    border-radius:23px;
   }
   .linko-dock-btn{
-    min-height:50px;
-    border-radius:17px;
+    min-height:49px;
+    border-radius:16px;
   }
   .linko-dock-label{font-size:9.5px}
   .linko-dock-icon{font-size:20px}
@@ -1891,12 +1850,15 @@ function linkoAiSendCustom(){var input=document.getElementById("linkoAiCustom");
 function linkoShowToast(text){var t=document.getElementById("linkoToast");if(!t){return;}t.textContent=text;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2200);}
 </script>
 
+
+
+
 <div aria-label="أزرار التواصل السريع" id="linkoPremiumDock">
 <a class="linko-dock-btn call" href="tel:+9647747248826" id="linkoDockCall">
 <span class="linko-dock-icon">📞</span>
 <span class="linko-dock-label">اتصال</span>
 </a>
-<a class="linko-dock-btn whatsapp" href="https://wa.me/9647747248826" id="linkoDockWhatsApp" target="_blank">
+<a class="linko-dock-btn whatsapp" href="https://wa.me/9647747248826" id="linkoDockWhatsApp" rel="noopener" target="_blank">
 <span class="linko-dock-icon">🟢</span>
 <span class="linko-dock-label">واتساب</span>
 </a>
@@ -1906,121 +1868,147 @@ function linkoShowToast(text){var t=document.getElementById("linkoToast");if(!t)
 </button>
 <button class="linko-dock-btn music" id="linkoDockMusic" type="button">
 <span class="linko-dock-icon" id="linkoDockMusicIcon">🎵</span>
-<span class="linko-dock-label" id="linkoDockMusicText">نغمة</span>
+<span class="linko-dock-label" id="linkoDockMusicText">موسيقى</span>
 </button>
 </div>
 <div id="linkoPremiumMusicToast"></div>
 
 <script>
-/* ===== LINKO_PREMIUM_ACTION_DOCK_FINAL ===== */
+/* ===== LINKO_PREMIUM_ACTION_DOCK_SMOOTH_REAL_MUSIC ===== */
 (function(){
-  function pickOldHref(selector, fallback){
+  function oldHref(selector,fallback){
     var old=document.querySelector(selector);
-    if(old && old.getAttribute("href")){return old.getAttribute("href");}
+    if(old && old.getAttribute("href")) return old.getAttribute("href");
     return fallback;
   }
 
   var call=document.getElementById("linkoDockCall");
   var wa=document.getElementById("linkoDockWhatsApp");
-  if(call){call.href=pickOldHref(".linko-floating-call","tel:+9647747248826");}
-  if(wa){wa.href=pickOldHref(".linko-floating-wa","https://wa.me/9647747248826");}
+  if(call){call.href=oldHref(".linko-floating-call","tel:+9647747248826");}
+  if(wa){wa.href=oldHref(".linko-floating-wa","https://wa.me/9647747248826");}
 
   var ai=document.getElementById("linkoDockAi");
   if(ai){
-    ai.addEventListener("click",function(){
-      if(typeof linkoToggleAi==="function"){
-        linkoToggleAi(true);
-      }else{
-        var chat=document.getElementById("linkoAiChat");
-        if(chat){chat.classList.add("linko-open");}
-      }
-    });
+    ai.onclick=function(){
+      if(typeof linkoToggleAi==="function"){linkoToggleAi(true);return;}
+      var chat=document.getElementById("linkoAiChat");
+      if(chat){chat.classList.add("linko-open");}
+    };
   }
-
-  var ctx=null;
-  var master=null;
-  var oscillators=[];
-  var musicOn=false;
 
   function toast(text){
     var t=document.getElementById("linkoPremiumMusicToast");
-    if(!t){return;}
+    if(!t)return;
     t.textContent=text;
     t.classList.add("show");
-    setTimeout(function(){t.classList.remove("show");},1800);
+    setTimeout(function(){t.classList.remove("show");},1500);
   }
 
-  function makeOsc(freq,type,gainValue){
-    var osc=ctx.createOscillator();
-    var gain=ctx.createGain();
+  var audioCtx=null;
+  var master=null;
+  var timer=null;
+  var musicOn=false;
+  var step=0;
+
+  /* موسيقى فعلية: نغمات متتابعة + بيز خفيف + هارموني، بدون ملف خارجي حتى يشتغل مباشرة */
+  var chords=[
+    [261.63,329.63,392.00],  // C
+    [220.00,261.63,329.63],  // Am
+    [174.61,220.00,261.63],  // F
+    [196.00,246.94,392.00]   // G
+  ];
+  var melody=[523.25,493.88,440.00,392.00,440.00,493.88,523.25,659.25,587.33,523.25,493.88,440.00,392.00,329.63,392.00,440.00];
+
+  function envGain(value,duration){
+    var g=audioCtx.createGain();
+    g.gain.setValueAtTime(0,audioCtx.currentTime);
+    g.gain.linearRampToValueAtTime(value,audioCtx.currentTime+0.035);
+    g.gain.exponentialRampToValueAtTime(0.0001,audioCtx.currentTime+duration);
+    return g;
+  }
+
+  function playTone(freq,type,value,duration,when){
+    var osc=audioCtx.createOscillator();
+    var gain=audioCtx.createGain();
     osc.type=type;
-    osc.frequency.value=freq;
-    gain.gain.value=0;
+    osc.frequency.setValueAtTime(freq,when);
+    gain.gain.setValueAtTime(0,when);
+    gain.gain.linearRampToValueAtTime(value,when+0.035);
+    gain.gain.exponentialRampToValueAtTime(0.0001,when+duration);
     osc.connect(gain);
     gain.connect(master);
-    osc.start();
-    gain.gain.linearRampToValueAtTime(gainValue,ctx.currentTime+1.2);
-    oscillators.push({osc:osc,gain:gain});
+    osc.start(when);
+    osc.stop(when+duration+0.05);
   }
 
-  function startPremiumMusic(){
-    ctx=new (window.AudioContext || window.webkitAudioContext)();
-    master=ctx.createGain();
-    master.gain.value=0.055;
-    master.connect(ctx.destination);
+  function playMusicStep(){
+    if(!audioCtx || !musicOn)return;
+    var now=audioCtx.currentTime;
+    var chord=chords[Math.floor(step/4)%chords.length];
 
-    /* نغمة هادئة وفخمة بدون ملف خارجي: طبقات ناعمة مثل خلفيات رجال الأعمال */
-    makeOsc(130.81,"sine",0.055);   // C3
-    makeOsc(196.00,"sine",0.040);   // G3
-    makeOsc(261.63,"triangle",0.026); // C4
-    makeOsc(329.63,"sine",0.018);   // E4
-    makeOsc(392.00,"triangle",0.014); // G4
+    /* نغمة ميلودي */
+    playTone(melody[step%melody.length],"sine",0.050,0.42,now);
 
-    var slow=ctx.createOscillator();
-    var slowGain=ctx.createGain();
-    slow.type="sine";
-    slow.frequency.value=0.08;
-    slowGain.gain.value=12;
-    slow.connect(slowGain);
-    slowGain.connect(oscillators[1].osc.frequency);
-    slow.start();
-    oscillators.push({osc:slow,gain:slowGain});
+    /* هارموني ناعم كل خطوتين */
+    if(step%2===0){
+      playTone(chord[0]/2,"sine",0.030,0.72,now);
+      playTone(chord[1],"triangle",0.018,0.66,now+0.02);
+      playTone(chord[2],"sine",0.015,0.66,now+0.04);
+    }
+
+    /* لمعة خفيفة */
+    if(step%4===0){
+      playTone(chord[2]*2,"triangle",0.012,0.28,now+0.12);
+    }
+
+    step++;
+  }
+
+  function startMusic(){
+    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    master=audioCtx.createGain();
+    master.gain.value=0.12;
+    master.connect(audioCtx.destination);
 
     musicOn=true;
+    step=0;
+    playMusicStep();
+    timer=setInterval(playMusicStep,430);
+
     var icon=document.getElementById("linkoDockMusicIcon");
     var text=document.getElementById("linkoDockMusicText");
-    if(icon){icon.textContent="⏸️";}
-    if(text){text.textContent="إيقاف";}
-    toast("تم تشغيل النغمة الهادئة");
+    if(icon)icon.textContent="⏸️";
+    if(text)text.textContent="إيقاف";
+    toast("تم تشغيل الموسيقى");
   }
 
-  function stopPremiumMusic(){
-    if(!ctx){return;}
-    oscillators.forEach(function(o){
-      try{
-        if(o.gain && o.gain.gain){
-          o.gain.gain.cancelScheduledValues(ctx.currentTime);
-          o.gain.gain.linearRampToValueAtTime(0,ctx.currentTime+0.45);
-        }
-        setTimeout(function(){try{o.osc.stop();}catch(e){}},520);
-      }catch(e){}
-    });
-    setTimeout(function(){try{ctx.close();}catch(e){} ctx=null; master=null; oscillators=[];},650);
-
+  function stopMusic(){
     musicOn=false;
+    if(timer){clearInterval(timer);timer=null;}
+    if(master && audioCtx){
+      try{
+        master.gain.cancelScheduledValues(audioCtx.currentTime);
+        master.gain.linearRampToValueAtTime(0,audioCtx.currentTime+0.2);
+      }catch(e){}
+    }
+    setTimeout(function(){
+      try{if(audioCtx)audioCtx.close();}catch(e){}
+      audioCtx=null;master=null;
+    },260);
+
     var icon=document.getElementById("linkoDockMusicIcon");
     var text=document.getElementById("linkoDockMusicText");
-    if(icon){icon.textContent="🎵";}
-    if(text){text.textContent="نغمة";}
-    toast("تم إيقاف النغمة");
+    if(icon)icon.textContent="🎵";
+    if(text)text.textContent="موسيقى";
+    toast("تم إيقاف الموسيقى");
   }
 
   var music=document.getElementById("linkoDockMusic");
   if(music){
-    music.addEventListener("click",function(){
-      if(!musicOn){startPremiumMusic();}
-      else{stopPremiumMusic();}
-    });
+    music.onclick=function(){
+      if(!musicOn)startMusic();
+      else stopMusic();
+    };
   }
 })();
 </script>
