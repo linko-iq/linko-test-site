@@ -2021,3 +2021,121 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 </script>
 <!-- LINKO_V9_REAL_MAP_CALC_COMPARE_FIX_END -->
+
+
+<!-- LINKO_V10_FINAL_BEHAVIOR_FIX_START -->
+<style id="linko-v10-final-behavior-fix">
+html,body{overflow-x:hidden!important;max-width:100%!important}
+body.linko-v10-ready .page>section,
+body.linko-v10-ready .linko-v10-page{display:none!important;visibility:hidden!important;height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+body.linko-v10-ready .hero{display:flex!important;visibility:visible!important;height:auto!important;overflow:visible!important}
+body.linko-v10-ready #linkoV5TopPicker,
+body.linko-v10-ready #linkoTopPagePicker,
+body.linko-v10-ready .linko-v5-picker,
+body.linko-v10-ready .footer{display:block!important;visibility:visible!important;height:auto!important;overflow:visible!important}
+body.linko-v10-single .hero,
+body.linko-v10-single #linkoV5TopPicker,
+body.linko-v10-single #linkoTopPagePicker,
+body.linko-v10-single .linko-v5-picker,
+body.linko-v10-single .footer,
+body.linko-v10-single #main-cta,
+body.linko-v10-single #linko-numbers{display:none!important;visibility:hidden!important;height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+body.linko-v10-single .page>section,
+body.linko-v10-single .linko-v10-page{display:none!important;visibility:hidden!important;height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+body.linko-v10-single .linko-v10-active{display:block!important;visibility:visible!important;height:auto!important;min-height:calc(100vh - 160px)!important;margin:78px auto 128px!important;padding:22px 16px!important;overflow:visible!important;max-width:980px!important}
+body.linko-v10-single .linko-v10-active .linko-calculator-box,
+body.linko-v10-single .linko-v10-active .linko-compare-box{display:block!important;visibility:visible!important;height:auto!important;margin:0!important;overflow:visible!important}
+.linko-v10-exit{position:fixed!important;left:50%!important;bottom:96px!important;transform:translateX(-50%)!important;z-index:2147483600!important;display:none!important;border:1px solid rgba(255,217,120,.75)!important;background:linear-gradient(135deg,#fff1b0,#D4AF37,#6a4808)!important;color:#100b02!important;border-radius:999px!important;padding:12px 24px!important;font-weight:950!important;font-family:inherit!important;box-shadow:0 0 30px rgba(212,175,55,.55),0 12px 28px rgba(0,0,0,.55)!important;cursor:pointer!important}
+body.linko-v10-single .linko-v10-exit{display:block!important}
+.linko-v5-menu-grid{grid-template-columns:repeat(2,1fr)!important}
+.linko-v10-alert{margin:10px 0 0;padding:12px;border-radius:16px;border:1px solid rgba(255,217,120,.3);background:rgba(212,175,55,.09);color:#FFD978;font-weight:900;line-height:1.8;text-align:center}
+@media(max-width:760px){body.linko-v10-single .linko-v10-active{margin-top:64px!important;margin-bottom:118px!important;padding:18px 12px!important}.linko-v10-exit{bottom:84px!important;padding:11px 18px!important}.linko-v5-menu-grid{grid-template-columns:1fr!important}}
+</style>
+<script id="linko-v10-final-behavior-fix">
+(function(){'use strict';
+var WA='9647747248826';
+function q(s,r){return (r||document).querySelector(s)}
+function qa(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function txt(el){return el?String(el.value||el.textContent||'').trim():''}
+function selText(id){var el=q(id);return el&&el.selectedOptions&&el.selectedOptions[0]?el.selectedOptions[0].text:txt(el)}
+function checked(id){var el=q(id);return !!(el&&el.checked)}
+function enc(s){return encodeURIComponent(s)}
+var PAGES=[
+ ['home','الرئيسية'],['dashboard','لوحة التحكم'],['services','الخدمات'],['models','النماذج'],['calculator','حاسبة السعر'],['compare','المقارنة'],['quickorder','طلب سريع'],['reviews','آراء العملاء'],['why','ليش LINKO؟'],['agents','الوكلاء'],['maintenance','الصيانة'],['pricing','الأسعار'],['guarantee','الضمان'],['how','طريقة العمل'],['faq','الأسئلة'],['contact','تواصل']
+];
+var MAP={dashboard:'#dashboard',services:'#services',models:'#models-showroom',agents:'#agents',maintenance:'#maintenance',pricing:'#pricing',guarantee:'#guarantee',how:'#how',faq:'#faq',contact:'#contact',calculator:'#calculator',compare:'#compare',quickorder:'#linko-smart-quote',reviews:'#linko-reviews',why:'#linko-why'};
+function buildFeaturePages(){
+ var page=q('.page'); if(!page)return;
+ var calc=q('#linko-price-calculator');
+ if(calc && !q('#calculator')){var s=document.createElement('section');s.id='calculator';s.className='section linko-v10-page';s.appendChild(calc); page.insertBefore(s, q('#guarantee')||null)}
+ var comp=q('.linko-compare-box');
+ if(comp && !q('#compare')){var c=document.createElement('section');c.id='compare';c.className='section linko-v10-page';c.appendChild(comp); page.insertBefore(c, q('#guarantee')||null)}
+ var qo=q('#linko-smart-quote'); if(qo){qo.classList.add('linko-v10-page')}
+ var rv=q('#linko-reviews'); if(rv){rv.classList.add('linko-v10-page')}
+ var why=q('#linko-why'); if(why){why.classList.add('linko-v10-page')}
+}
+function rebuildMenu(){
+ var grid=q('#linkoV5Menu .linko-v5-menu-grid'); if(grid){grid.innerHTML=PAGES.map(function(p){return '<button type="button" data-v10-page="'+p[0]+'" data-v5-page="'+p[0]+'">'+p[1]+'</button>'}).join('')}
+ qa('[data-v5-open-menu]').forEach(function(b){b.setAttribute('data-v10-open-menu','1')});
+ var dock=q('.linko-v5-dock');
+ if(dock && !q('[data-v10-page="menu-dummy"]',dock)){
+   var hasChoose=!!q('[data-v5-open-menu]',dock); if(!hasChoose){dock.insertAdjacentHTML('afterbegin','<button class="linko-v5-tool" data-v10-open-menu type="button"><span class="linko-v5-icon">☷</span><span class="linko-v5-label">اختيار صفحة</span></button>')}
+ }
+}
+function allPageSections(){
+ var arr=qa('.page>section');
+ ['#calculator','#compare','#linko-smart-quote','#linko-reviews','#linko-why'].forEach(function(s){var el=q(s); if(el && arr.indexOf(el)<0) arr.push(el)});
+ return arr;
+}
+function clearActive(){allPageSections().forEach(function(el){el.classList.remove('linko-v10-active','linko-v6-active','linko-v5-active');el.classList.add('linko-v10-hidden')})}
+function hideGate(){var g=q('.linko-gate-final'); if(g){g.style.display='none';g.style.visibility='hidden';g.style.pointerEvents='none'}}
+function closePopups(){qa('.linko-v5-overlay.open,#linkoV5Menu.open,#linkoV5Lang.open').forEach(function(x){x.classList.remove('open')});var ai=q('#linkoAiAssistant');if(ai){ai.classList.remove('linko-v6-open','linko-v5-open');ai.style.display='none'}}
+function showHome(){hideGate();closePopups();document.body.classList.remove('linko-v10-single','linko-v6-single','linko-v5-single');clearActive();window.scrollTo({top:0,behavior:'auto'})}
+function showPage(key){
+ if(key==='home'||key==='top'){showHome();return}
+ buildFeaturePages(); hideGate(); closePopups(); clearActive();
+ var sel=MAP[key]||('#'+key); var target=q(sel);
+ if(!target){showHome();return}
+ document.body.classList.add('linko-v10-single','linko-v6-single','linko-v5-single');
+ target.classList.remove('linko-v10-hidden'); target.classList.add('linko-v10-active');
+ window.scrollTo({top:0,behavior:'auto'});
+}
+function ensureExit(){var b=q('#linkoV10Exit'); if(!b){b=document.createElement('button');b.id='linkoV10Exit';b.className='linko-v10-exit';b.type='button';b.textContent='خروج للرئيسية';document.body.appendChild(b)} b.onclick=function(e){e.preventDefault();e.stopImmediatePropagation();showHome();return false}}
+function calcScore(){var score=0;
+ var type=(q('#calcType')||{}).value||''; var design=(q('#calcDesign')||{}).value||''; var idea=(q('#calcIdea')||{}).value||''; var size=(q('#calcSize')||{}).value||'';
+ if(['hotel','company','shop'].indexOf(type)>=0)score+=2; else if(['pharmacy','personal','cafe'].indexOf(type)>=0)score+=1;
+ if(design==='pro')score+=1; if(design==='luxury')score+=2; if(design==='custom')score+=3;
+ if(idea==='booking')score+=1; if(idea==='portfolio')score+=1; if(idea==='full')score+=2;
+ if(size==='medium')score+=1; if(size==='large')score+=2;
+ ['#calcOrder','#calcLang','#calcGallery','#calcSeo','#calcMaintenance','#calcFast'].forEach(function(id){if(checked(id))score+=1});
+ return score;
+}
+function updateCalc(){
+ var score=calcScore(); var pkg='البرونزية',range='$50 - $90',advice='مناسبة لبداية سريعة ومنيو أو صفحة تعريفية مرتبة.';
+ if(score>=4 && score<8){pkg='الذهبية';range='$90 - $150';advice='مناسبة لمشروع يريد حضور احترافي وروابط مباشرة وتجربة موبايل قوية.'}
+ if(score>=8){pkg='الألماسية';range='$150 - $200';advice='مناسبة لهوية فخمة، أقسام أكثر، وتجربة تسويقية أقوى.'}
+ var p=q('#calcPackage'),r=q('#calcRange'),a=q('#calcAdvice'); if(p)p.textContent='الباقة المناسبة: '+pkg; if(r)r.textContent='السعر التقريبي: '+range; if(a)a.textContent=advice;
+ var extras=[]; [['#calcQr','QR Menu / رابط QR'],['#calcWhatsapp','ربط واتساب وإنستغرام'],['#calcOrder','طلبات / حجز / نموذج إرسال'],['#calcLang','تعدد لغات'],['#calcGallery','معرض صور أو أعمال'],['#calcSeo','تحسين SEO أساسي'],['#calcMaintenance','صيانة وتحديث شهري'],['#calcFast','تنفيذ سريع / أولوية']].forEach(function(x){if(checked(x[0]))extras.push(x[1])});
+ var msg='مرحبا LINKO\nأريد استشارة حسب حاسبة السعر\n\nنوع المشروع: '+selText('#calcType')+'\nنوع التصميم: '+selText('#calcDesign')+'\nفكرة المشروع: '+selText('#calcIdea')+'\nعدد الأقسام: '+selText('#calcSize')+'\nالإضافات: '+(extras.join('، ')||'بدون إضافات')+'\n\nالباقة المقترحة: '+pkg+'\nالسعر التقريبي: '+range+'\n\nتنبيه: أعرف أن السعر تقديري فقط، والسعر النهائي تحدده إدارة LINKO حسب التفاصيل.';
+ var w=q('#calcWhatsApp'); if(w)w.href='https://wa.me/'+WA+'?text='+enc(msg);
+ return msg;
+}
+function orderMsg(){return 'مرحبا LINKO\nأريد طلب سريع من الموقع\n\nالاسم: '+txt(q('#orderName'))+'\nنوع المشروع: '+selText('#orderType')+'\nالمدينة: '+txt(q('#orderCity'))+'\nالميزانية التقريبية: '+selText('#orderBudget')+'\nالملاحظات: '+txt(q('#orderNotes'))+'\n\nرجاءً تواصلوا وياي لتحديد السعر النهائي.'}
+function updateOrder(){var a=q('#quickOrderWhatsApp'); if(a)a.href='https://wa.me/'+WA+'?text='+enc(orderMsg())}
+function bindForms(){
+ qa('#calcType,#calcDesign,#calcIdea,#calcSize,#calcQr,#calcWhatsapp,#calcOrder,#calcLang,#calcGallery,#calcSeo,#calcMaintenance,#calcFast').forEach(function(el){el.addEventListener('input',updateCalc);el.addEventListener('change',updateCalc)});updateCalc();
+ qa('#orderName,#orderType,#orderCity,#orderBudget,#orderNotes').forEach(function(el){el.addEventListener('input',updateOrder);el.addEventListener('change',updateOrder)});updateOrder();
+ var cw=q('#calcWhatsApp'); if(cw)cw.addEventListener('click',function(){updateCalc();},true);
+ var ow=q('#quickOrderWhatsApp'); if(ow)ow.addEventListener('click',function(){updateOrder();},true);
+ var clr=q('#quickOrderClear'); if(clr)clr.onclick=function(e){e.preventDefault();['#orderName','#orderCity','#orderNotes'].forEach(function(id){var el=q(id);if(el)el.value=''});updateOrder()};
+}
+function bindPages(){document.addEventListener('click',function(e){var m=e.target.closest('[data-v10-open-menu],[data-v5-open-menu]'); if(m){e.preventDefault();e.stopImmediatePropagation();var menu=q('#linkoV5Menu');if(menu)menu.classList.add('open');return false}
+ var pg=e.target.closest('[data-v10-page],[data-v6-page],[data-v5-page]'); if(pg){var key=pg.getAttribute('data-v10-page')||pg.getAttribute('data-v6-page')||pg.getAttribute('data-v5-page'); if(key){e.preventDefault();e.stopImmediatePropagation();showPage(key);return false}}
+ var a=e.target.closest('a[href^="#"]'); if(a){var h=(a.getAttribute('href')||'').slice(1); if(MAP[h]||h==='home'||h==='top'||h==='models-showroom'){e.preventDefault();e.stopImmediatePropagation();showPage(h==='models-showroom'?'models':h);return false}}
+ },true)}
+function init(){buildFeaturePages();rebuildMenu();ensureExit();bindForms();bindPages();hideGate();document.body.classList.add('linko-v10-ready');showHome()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+window.linkoV10ShowPage=showPage; window.linkoV10ShowHome=showHome;
+})();
+</script>
+<!-- LINKO_V10_FINAL_BEHAVIOR_FIX_END -->
